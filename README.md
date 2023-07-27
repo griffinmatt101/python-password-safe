@@ -14,6 +14,7 @@ Store hash in postgresql db
 
 ### Stretch goals
 - Create custom hash function
+- Password generator
 
 ### References
 - https://www.geeksforgeeks.org/hashing-passwords-in-python-with-bcrypt/

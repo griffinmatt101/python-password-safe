@@ -1,7 +1,6 @@
-# Method to create a new password hash
-
 import bcrypt
 
+# Method to create a new password hash
 def password_hash(input):
     #convert password to array of bytes
     bytes = input.encode('utf-8')

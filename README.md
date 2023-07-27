@@ -3,13 +3,13 @@ Password manager written in Python, using DB connections through PostgreSQL
 
 ## 3 Main Steps
 
-### Step 1
-Grab user input (from console)
+### 1)
+Grab user input from console
 
-### Step 2
+### 2)
 Create function to hash input
 
-### Step 3
+### 3)
 Store hash in postgresql db
 
 ### Stretch goals
@@ -17,3 +17,6 @@ Store hash in postgresql db
 
 ### References
 - https://www.geeksforgeeks.org/hashing-passwords-in-python-with-bcrypt/
+- https://www.postgresqltutorial.com/postgresql-python/connect/
+- https://itecnote.com/tecnote/python-connect-to-a-db-using-psycopg2-without-password/
+- https://www.peterbe.com/plog/connecting-with-psycopg2-without-a-username-and-password

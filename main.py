@@ -1,6 +1,7 @@
 # Python Password Safe Main File
 
 from pass_hash import *
+from database import *
 
 def main():
 
@@ -15,13 +16,16 @@ def main():
         name = input()
         print('Enter the password you want to store: ')
         pwd = input()
-        password_hash(name,pwd)
+        #need encryption function
+        
     elif(x == '2'):
-        #will need to see if you are already authenticated
-        if()
+        #will need to see if you are already authenticated (can be done in function)
         print('Enter the name of the site or application you want to retrieve the password for: ')
         name = input()
 
+    elif (x == '3'):
+        #test db connection
+        db_con()
 
 if __name__ == "__main__":
     main()

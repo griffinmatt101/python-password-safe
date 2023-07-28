@@ -27,16 +27,19 @@ Store entries in postgresql db
 - https://pynative.com/python-postgresql-tutorial/
 
 ### Database Structure (WIP)
-++++++++++++++++++++++++++++++++
-| table_name | 
-| user_1     | 
+<pre>
+______________
+| table_name |
+| user_1     |
 | user_2     |
 |    .       |
 |    .       |
 |    .       |
 | user_n     |
 
-user_n table
+user_n table 
+___________________________________________
 | id | service name | service pwd encrypt |
 | 1  | example 1    | example 1 encrypt   |
 | 2  | example 2    | example 2 encrypt   |
+</pre>

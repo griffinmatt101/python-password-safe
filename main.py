@@ -14,6 +14,7 @@ def menu():
 
 def main():
 
+    isAuth = False
     menu()
     x = ''
     while x != 'q': 
@@ -23,7 +24,7 @@ def main():
         # NEW ACCOUNT ##################################################
         if(x == '1'):
             print('Please enter the USERNAME you would like to create')
-            name = input()
+            uname = input()
             print('Please enter the PASSWORD you would like to create')
             pwd = input()
             addAccount(uname,pwd)
@@ -32,11 +33,13 @@ def main():
         # NEW ENTRY #########################################################################
         elif(x == '2'):
             #check auth first
-            print('Enter the name of the SITE or APPLICATION associated with this password')
-            name = input()
-            print('Enter the PASSWORD you want to store: ')
-            pwd = input()
-            #need encryption function
+            if(not isAuth):
+                if(check_auth()):
+                    print('Enter the name of the SITE or APPLICATION associated with this password')
+                    uname = input()
+                    print('Enter the PASSWORD you want to store: ')
+                    pwd = input()
+                    #need encryption function
         #####################################################################################
 
         # RETRIEVE ENTRY ##############################################################################
@@ -48,7 +51,6 @@ def main():
 
         # MENU #####################################
         elif (x == '0' or x == 'h' or x == 'help'):
-            #test db connection
             menu()
         ############################################
 
@@ -57,6 +59,9 @@ def main():
             print('Goodbye!')
             break
         #############################
+
+        elif(x == 'db'):
+            db_con()
 
         # ERROR #####################################
         else:

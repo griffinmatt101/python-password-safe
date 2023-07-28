@@ -23,6 +23,8 @@ Store entries in postgresql db
 ### References
 - https://www.geeksforgeeks.org/hashing-passwords-in-python-with-bcrypt/
 - https://www.postgresqltutorial.com/postgresql-python/connect/
+- https://martinheinz.dev/blog/59
+- https://pynative.com/python-postgresql-tutorial/
 
 ### Database Structure (WIP)
 ++++++++++++++++++++++++++++++++
@@ -35,6 +37,6 @@ Store entries in postgresql db
 | user_n     |
 
 user_n table
-| id | service_name | service_pwd_encrypt |
-| 1  | example_1    | example_1_encrypt   |
-| 2  | example_2    | example_2_encrypt   |
+| id | service name | service pwd encrypt |
+| 1  | example 1    | example 1 encrypt   |
+| 2  | example 2    | example 2 encrypt   |

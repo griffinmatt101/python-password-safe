@@ -1,6 +1,8 @@
 # python-password-safe
 Password manager written in Python, using DB connections through PostgreSQL
 
+(CURRENTLY UNDER CONSTRUCTION)
+
 ## 3 Main Steps
 
 ### 1)
@@ -36,10 +38,12 @@ ______________
 |    .       |
 |    .       |
 | user_n     |
+|____________|
 
 user_n table 
 ___________________________________________
 | id | service name | service pwd encrypt |
 | 1  | example 1    | example 1 encrypt   |
 | 2  | example 2    | example 2 encrypt   |
+|_________________________________________|
 </pre>

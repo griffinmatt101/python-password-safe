@@ -32,6 +32,7 @@ Store entries in postgresql db
 - https://www.postgresqltutorial.com/postgresql-python/connect/
 - https://martinheinz.dev/blog/59
 - https://pynative.com/python-postgresql-tutorial/
+- https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-create-table/
 
 ### Database Structure (WIP)
 <pre>
@@ -39,8 +40,8 @@ Store entries in postgresql db
 user_accounts table
 _________________________________________________________
 |   id   |   usernames   |   hash_salt   |   hash_pwd   |
-|   1    |   user_1      |   salt_1      |   hash1'     |
-|   2    |   user_2      |   salt_2      |   hash2'     |
+|   1    |   user_1      |   salt_1      |   hash1      |
+|   2    |   user_2      |   salt_2      |   hash2      |
 |_______________________________________________________|
 
 user_n table

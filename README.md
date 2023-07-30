@@ -22,6 +22,11 @@ Store entries in postgresql db
 - Create custom hash function
 - Password generator
 
+### TODO
+- Write unit tests
+- Write DB functions
+- Write check auth function
+
 ### References
 - https://www.geeksforgeeks.org/hashing-passwords-in-python-with-bcrypt/
 - https://www.postgresqltutorial.com/postgresql-python/connect/
@@ -30,17 +35,15 @@ Store entries in postgresql db
 
 ### Database Structure (WIP)
 <pre>
-______________
-| table_name |
-| user_1     |
-| user_2     |
-|    .       |
-|    .       |
-|    .       |
-| user_n     |
-|____________|
 
-user_n table 
+user_accounts table
+_________________________________________________________
+|   id   |   usernames   |   hash_salt   |   hash_pwd   |
+|   1    |   user_1      |   salt_1      |   hash1'     |
+|   2    |   user_2      |   salt_2      |   hash2'     |
+|_______________________________________________________|
+
+user_n table
 ___________________________________________
 | id | service name | service pwd encrypt |
 | 1  | example 1    | example 1 encrypt   |

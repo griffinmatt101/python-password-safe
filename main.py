@@ -1,8 +1,11 @@
 # Python Password Safe Main File
 
 # * is just for testing
-from pass_main import *
-from database import *
+import accounts
+from accounts import UserAccount
+#just for testing
+import database
+from database import PasswordDatabase
 
 def menu():
     print('This program is designed to test password encryption and database storage.')
@@ -11,9 +14,9 @@ def menu():
     print('2. Create New Entry')
     print('3. Retrieve Entry')
     print('0. Display main menu options')
+    print('Press Q to quit')
 
 def main():
-
     isAuth = False
     menu()
     x = ''
@@ -27,14 +30,16 @@ def main():
             uname = input()
             print('Please enter the PASSWORD you would like to create')
             pwd = input()
-            addAccount(uname,pwd)
+            account = UserAccount(uname,pwd)
+            account.addAccount()
+            print('Please select an option: ')
         ################################################################
 
         # NEW ENTRY #########################################################################
         elif(x == '2'):
             #check auth first
             if(not isAuth):
-                if(check_auth()):
+                if(checkAuth()):
                     print('Enter the name of the SITE or APPLICATION associated with this password')
                     uname = input()
                     print('Enter the PASSWORD you want to store: ')
@@ -55,13 +60,10 @@ def main():
         ############################################
 
         # QUIT ######################
-        elif (x == 'q' or x == 'Q'):
+        elif (x.upper() == 'Q' or x.upper() == 'QUIT'):
             print('Goodbye!')
             break
         #############################
-
-        elif(x == 'db'):
-            db_con()
 
         # ERROR #####################################
         else:

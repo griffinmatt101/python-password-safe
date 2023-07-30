@@ -26,6 +26,7 @@ Store entries in postgresql db
 - Write unit tests
 - Write DB functions
 - Write check auth function
+- Create custom exceptions
 
 ### References
 - https://www.geeksforgeeks.org/hashing-passwords-in-python-with-bcrypt/
@@ -33,6 +34,7 @@ Store entries in postgresql db
 - https://martinheinz.dev/blog/59
 - https://pynative.com/python-postgresql-tutorial/
 - https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-create-table/
+- https://timothybramlett.com/How_to_create_a_Python_Package_with___init__py.html
 
 ### Database Structure (WIP)
 <pre>

@@ -1,7 +1,6 @@
 # Python Password Safe Main File
-from accounts import UserAccount
-from accounts import db
-from db.database import PasswordDatabase
+from src.Accounts import UserAccount
+from src.Accounts import db
 
 def menu():
     print('This program is designed to test password encryption and database storage.')

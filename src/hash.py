@@ -1,6 +1,6 @@
 import bcrypt
 
-class Hash():
+class HashClass:
     
     def __init__(self):
         self.pwd = None

@@ -40,11 +40,11 @@ Store entries in postgresql db
 <pre>
 
 user_accounts table
-_________________________________________________________
-|   id   |   usernames   |   hash_salt   |   hash_pwd   |
-|   1    |   user_1      |   salt_1      |   hash1      |
-|   2    |   user_2      |   salt_2      |   hash2      |
-|_______________________________________________________|
+________________________________________________
+|   usernames   |   hash_salt   |   hash_pwd   |
+|   user_1      |   salt_1      |   hash1      |
+|   user_2      |   salt_2      |   hash2      |
+|______________________________________________|
 
 user_n table
 ___________________________________________

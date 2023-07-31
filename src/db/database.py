@@ -21,6 +21,8 @@ class PasswordDatabase:
   and a unique salt IF they don't exist in the database
 
   If the username is already in the database, raise an exception to be passed back
+
+  TODO: Update sql string format like selectUser function
   '''
   def addUser(self,uname,hashObj):
 
@@ -43,12 +45,12 @@ class PasswordDatabase:
   to use for authentication
   '''
   def selectUser(self,uname):
-    sql = 'SELECT password,salt FROM accounts WHERE username=\'%s\';'
+    sql = 'SELECT password,salt FROM accounts WHERE username=%(uname)s;'
     try:
 
-      self.cursor.execute(sql % uname)
+      self.cursor.execute(sql, {'username' : uname})
       self.connect.commit()
-      output = self.cursor.fetchall()
+      output = self.cursor.fetchone()
 
       #empty list, user is not in DB
       if(not output):

@@ -34,12 +34,23 @@ def main():
         elif(x == '2'):
             #check auth first
             if(not isAuth):
-                if(checkAuth()):
-                    print('Enter the name of the SITE or APPLICATION associated with this password')
-                    uname = input()
-                    print('Enter the PASSWORD you want to store: ')
-                    pwd = input()
-                    #need encryption function
+                print('You must login to continue')
+                print('Username')
+                uname = input()
+                print('Password')
+                pwd = input()
+                account = UserAccount(uname,pwd)
+                if(account.checkAuth()):
+                    print('AUTHED')
+                else:
+                    print('NOT AUTHED')
+
+                # if(checkAuth()):
+                #     print('Enter the name of the SITE or APPLICATION associated with this password')
+                #     uname = input()
+                #     print('Enter the PASSWORD you want to store: ')
+                #     pwd = input()
+                #     #need encryption function
         #####################################################################################
 
         # RETRIEVE ENTRY ##############################################################################

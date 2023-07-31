@@ -4,12 +4,16 @@ class HashClass:
     
     def __init__(self):
         self.pwd = None
-        #don't create salt until we pull from db
         self.salt = None
-        #bcrypt.gensalt()
 
-    # Need to store each individual salt in DB and use it when checking
-    # Method to create a new password hash
+    def passwordHashWithSalt(self):
+        bytes = self.pwd.encode('utf-8')
+        
+        return
+
+    '''
+    Create a new password hash and sets the salt
+    '''
     def newPasswordHash(self,pwd):
 
         bytes = pwd.encode('utf-8')

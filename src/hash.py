@@ -6,10 +6,29 @@ class HashClass:
         self.pwd = None
         self.salt = None
 
-    def passwordHashWithSalt(self):
-        bytes = self.pwd.encode('utf-8')
+    '''
+    Compares password provided with password from database,
+    using salt pulled from database
+    '''
+    def checkHashWithSalt(self,pwd):
+        bytes = pwd.encode('utf-8')
+
+        # "Unicode-objects must be encoded before hashing"
+        try:
+            pwdTry = bcrypt.hashpw(bytes,self.salt)
+
+            if(pwdTry == self.pwd):
+                print('true')
+            else:
+                print('false')
+
+        except Exception as e:
+            print(e)
         
-        return
+        # result = bcrypt.checkpw(pwd,self.pwd)
+        # print(result)
+
+        return True 
 
     '''
     Create a new password hash and sets the salt
@@ -19,10 +38,3 @@ class HashClass:
         bytes = pwd.encode('utf-8')
         self.salt = bcrypt.gensalt()
         self.pwd = bcrypt.hashpw(bytes, self.salt)
-
-    def doesPasswordMatch(self,pwd, check_val):
-        hash = passwordHash(pwd)
-
-        result = bcrypt.checkpw(check_val,hash)
-
-        return result

@@ -2,6 +2,7 @@ from .Hash import HashClass
 from .db.Database import PasswordDatabase
 from .exceptions.Exceptions import UserExistsException
 from .exceptions.Exceptions import UserDoesNotExistException
+from .exceptions.Exceptions import DatabaseErrorException
 
 global isAuth
 
@@ -27,8 +28,8 @@ class UserAccount:
             db.addUser(self.uname,hashObj)
         except UserExistsException:
             print('Username already exists!')
-        except:#?
-            print('Error')
+        except DatabaseErrorException:
+            print('Database error')
         finally:
             return
     
@@ -38,17 +39,17 @@ class UserAccount:
             return True
 
         #TODO: use db object to pull username, (hashed) pwd, and salt from accounts table
-        
-        # print('You must login to continue')
-        # print('Username: ')
-        # uname = input()
-        # print('Password: ')
-        # pwd = input()
 
         try:
             hashTest = db.selectUser(self.uname)
+            comp = hashTest.checkHashWithSalt(self.pwd)
+            print(comp)
         except UserDoesNotExistException:
             print('Username %s does not exist! ' % self.uname)
+        except DatabaseErrorException:
+            print('Database Error')
+        except Exception:
+            print('huh?')
         finally:
             return
         

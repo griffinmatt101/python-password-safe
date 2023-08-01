@@ -1,8 +1,10 @@
 import psycopg2
 from psycopg2 import Error
+from psycopg2 import sql
 from ..exceptions.Exceptions import UserExistsException
 from ..exceptions.Exceptions import UserDoesNotExistException
-from ..Hash import HashClass 
+from ..exceptions.Exceptions import DatabaseErrorException
+from ..Hash import HashClass
 
 class PasswordDatabase:
 
@@ -26,11 +28,11 @@ class PasswordDatabase:
   '''
   def addUser(self,uname,hashObj):
 
-    sql = 'INSERT INTO accounts(username,password,salt) VALUES(%s,%s,%s);'
+    statement = 'INSERT INTO accounts(username,password,salt) VALUES(%s,%s,%s);'
 
     try:
 
-      self.cursor.execute(sql,(uname,hashObj.pwd,hashObj.salt))
+      self.cursor.execute(statement,(uname,hashObj.pwd,hashObj.salt))
       self.connect.commit()
       print('Successfully added account %s!' % uname)
 
@@ -38,17 +40,19 @@ class PasswordDatabase:
       raise UserExistsException
 
     except(Exception, psycopg2.DatabaseError) as error:
-      print(error)
+      raise DatabaseErrorException(error)
 
   '''
   Grabs the username, hashed password, and unique salt from the database
   to use for authentication
   '''
   def selectUser(self,uname):
-    sql = 'SELECT password,salt FROM accounts WHERE username=%(uname)s;'
+
+    statement = 'SELECT password,salt FROM accounts WHERE username=%s;'
+
     try:
 
-      self.cursor.execute(sql, {'username' : uname})
+      self.cursor.execute(statement,(uname,))
       self.connect.commit()
       output = self.cursor.fetchone()
 
@@ -57,11 +61,14 @@ class PasswordDatabase:
         raise UserDoesNotExistException
 
       hashObj = HashClass()
-      hashObj.pwd = output[0][0]
-      hashObj.salt = output[0][1]
+      hashObj.pwd = output[0]
+      hashObj.salt = output[1]
 
       return hashObj
 
+    except UserDoesNotExistException:
+      raise
+      
     except(Exception, psycopg2.DataError) as error:
       print(error)
 

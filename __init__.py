@@ -1,5 +1,6 @@
 # Python Password Safe Main File
 from src.Accounts import UserAccount
+from src.Service import ServiceClass
 from src.Accounts import db
 
 def menu():
@@ -17,9 +18,9 @@ def main():
     x = ''
     while x != 'q': 
         x = input()
-        # need type and error checking
+        #TODO: Error and Type checking
 
-        # NEW ACCOUNT ##################################################
+        # NEW ACCOUNT --------------------------------------------------
         if(x == '1'):
             print('Please enter the USERNAME you would like to create')
             uname = input()
@@ -28,9 +29,9 @@ def main():
             account = UserAccount(uname,pwd)
             account.addAccount()
             print('Please select an option: ')
-        ################################################################
+        # --------------------------------------------------------------
 
-        # NEW ENTRY #########################################################################
+        # NEW ENTRY -----------------------------------
         elif(x == '2'):
             #check auth first
             if(not isAuth):
@@ -42,41 +43,35 @@ def main():
                 account = UserAccount(uname,pwd)
                 if(account.checkAuth()):
                     print('AUTHED')
+                    isAuth = account.isAuth
                 else:
-                    print('NOT AUTHED')
+                    print('Please select an option: ')
+        # ---------------------------------------------
 
-                # if(checkAuth()):
-                #     print('Enter the name of the SITE or APPLICATION associated with this password')
-                #     uname = input()
-                #     print('Enter the PASSWORD you want to store: ')
-                #     pwd = input()
-                #     #need encryption function
-        #####################################################################################
-
-        # RETRIEVE ENTRY ##############################################################################
+        # RETRIEVE ENTRY ------------------------------------------------------------------------------
         elif(x == '3'):
             #will need to see if you are already authenticated (can be done in function)
             print('Enter the name of the site or application you want to retrieve the password for: ')
             name = input()
-        ###############################################################################################
+        # ---------------------------------------------------------------------------------------------
 
-        # MENU #####################################
+        # MENU -------------------------------------
         elif (x == '0' or x == 'h' or x == 'help'):
             menu()
-        ############################################
+        # ------------------------------------------
 
-        # QUIT ######################
+        # QUIT -----------------------------------------
         elif (x.upper() == 'Q' or x.upper() == 'QUIT'):
             print('Goodbye!')
             db.closeDB()
             break
-        #############################
+        # ----------------------------------------------
 
-        # ERROR #####################################
+        # ERROR -------------------------------------
         else:
             print('Please enter the correct input')
             print('Display menu options with 0')
-        #############################################
+        # -------------------------------------------
 
 if __name__ == "__main__":
     main()

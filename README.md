@@ -21,6 +21,7 @@ Store entries in postgresql db
 ### Stretch goals
 - Create custom hash function
 - Password generator
+- Delete account
 
 ### TODO
 - Write unit tests
@@ -47,9 +48,9 @@ ________________________________________________
 |______________________________________________|
 
 user_n table
-___________________________________________
-| id | service name | service pwd encrypt |
-| 1  | example 1    | example 1 encrypt   |
-| 2  | example 2    | example 2 encrypt   |
-|_________________________________________|
+______________________________________
+| service name | service pwd encrypt |
+| example 1    | example 1 encrypt   |
+| example 2    | example 2 encrypt   |
+|____________________________________|
 </pre>

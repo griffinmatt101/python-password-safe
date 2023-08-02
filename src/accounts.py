@@ -8,6 +8,9 @@ global isAuth
 
 db = PasswordDatabase()
 
+'''
+Class to hold username, password, and whether they are currently authenticated
+'''
 class UserAccount:
 
     def __init__(self, uname, pwd):
@@ -32,39 +35,39 @@ class UserAccount:
             print('Database error')
         finally:
             return
+
+    def addEntry(self):
+        return
     
-    #TODO: Fix this function
+    '''
+    Grabs password and hash from database for username, and compares with
+    the provided password to see if hashes match
+    '''
     def checkAuth(self):
+
         if(self.isAuth):
             return True
 
-        #TODO: use db object to pull username, (hashed) pwd, and salt from accounts table
-
         try:
             hashTest = db.selectUser(self.uname)
-            comp = hashTest.checkHashWithSalt(self.pwd)
-            print(comp)
         except UserDoesNotExistException:
             print('Username %s does not exist! ' % self.uname)
+            return
         except DatabaseErrorException:
             print('Database Error')
-        except Exception:
-            print('huh?')
-        finally:
-            return
-        
+            return         
 
-        # count = 0
-        # while count < 3:
-        #     print('Password: ')
-        #     pwd = input()
-        #     if(doesPasswordMatch(pwd, check_val)): 
-        #         isAuth = True
-        #         print('Authenticated!')
-        #         return True
-        #     elif(count < 2):
-        #         print('Incorrect Password! Try again: ')
-        #     else:
-        #         print('Incorrect Password! Returning to menu')
-        #         return False
-        #     count = count + 1
+        count = 0
+
+        while count < 3:
+            if(hashTest.checkHashWithSalt(self.pwd)): 
+                self.isAuth = True
+                print('Authenticated!')
+                return True
+            elif(count < 2):
+                print('Incorrect Password! Try again: ')
+                self.pwd = input()
+            else:
+                print('Incorrect Password! Returning to menu')
+                return False
+            count = count + 1

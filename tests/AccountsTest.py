@@ -1,6 +1,11 @@
 from unittest import TestCase
 from unittest.mock import patch
-from .src.Accounts import UserAccount
+
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/../src")
+
+from Accounts import UserAccount
 
 class TestAddAccount(TestCase):
 

@@ -1,7 +1,12 @@
 # Python Password Safe Main File
-from src.Accounts import UserAccount
-from src.Service import ServiceClass
-from src.Accounts import db
+import sys
+import os
+
+sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/src")
+
+from Accounts import UserAccount
+from Service import ServiceClass
+from Accounts import db
 
 def menu():
     print('This program is designed to test password encryption and database storage.')

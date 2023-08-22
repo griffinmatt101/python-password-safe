@@ -36,6 +36,7 @@ Store entries in postgresql db
 - https://pynative.com/python-postgresql-tutorial/
 - https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-create-table/
 - https://timothybramlett.com/How_to_create_a_Python_Package_with___init__py.html
+- Run unit test example: `python3 -m unittest AccountsTest.py`
 
 ### Database Structure (WIP)
 <pre>

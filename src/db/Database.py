@@ -1,10 +1,15 @@
 import psycopg2
+import sys
+import os
+
+sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/..")
+
 from psycopg2 import Error
 from psycopg2 import sql
-from ..exceptions.Exceptions import UserExistsException
-from ..exceptions.Exceptions import UserDoesNotExistException
-from ..exceptions.Exceptions import DatabaseErrorException
-from ..Hash import HashClass
+from exceptions.Exceptions import UserExistsException
+from exceptions.Exceptions import UserDoesNotExistException
+from exceptions.Exceptions import DatabaseErrorException
+from Hash import HashClass
 
 class PasswordDatabase:
 

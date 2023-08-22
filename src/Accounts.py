@@ -1,8 +1,12 @@
-from .Hash import HashClass 
-from .db.Database import PasswordDatabase
-from .exceptions.Exceptions import UserExistsException
-from .exceptions.Exceptions import UserDoesNotExistException
-from .exceptions.Exceptions import DatabaseErrorException
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/src")
+
+from Hash import HashClass 
+from db.Database import PasswordDatabase
+from exceptions.Exceptions import UserExistsException
+from exceptions.Exceptions import UserDoesNotExistException
+from exceptions.Exceptions import DatabaseErrorException
 
 global isAuth
 
@@ -36,6 +40,9 @@ class UserAccount:
         finally:
             return
 
+    '''
+    
+    '''
     def addEntry(self):
         return
     

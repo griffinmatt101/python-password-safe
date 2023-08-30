@@ -62,7 +62,7 @@ class UserAccount:
             return
         except DatabaseErrorException:
             print('Database Error')
-            return         
+            return
 
         count = 0
 

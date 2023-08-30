@@ -37,6 +37,8 @@ Store entries in postgresql db
 - https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-create-table/
 - https://timothybramlett.com/How_to_create_a_Python_Package_with___init__py.html
 - Run unit test example: `python3 -m unittest AccountsTest.py`
+- Run code coverage: `coverage run -m unittest AccountsTest.py`
+- Display code coverage: `coverage report -m`
 
 ### Database Structure (WIP)
 <pre>

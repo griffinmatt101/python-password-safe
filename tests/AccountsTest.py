@@ -16,13 +16,18 @@ from exceptions.Exceptions import DatabaseErrorException
 from Hash import HashClass
 
 
+hashMock = HashClass()
+hashMock.pwd = 'pwd'
+hashMock.salt = 'salt'
+
 class TestAddAccount(TestCase):
 
     '''
     addAccount tests
     '''
+    @patch('Hash.HashClass.newPasswordHash')
     @patch('db.Database.PasswordDatabase.addUser')
-    def testAddAccountSuccess(self,mockUser):
+    def testAddAccountSuccess(self, mockUser, mockHash):
 
         testAccounts = UserAccount('','')
         testStr = ''
@@ -32,8 +37,9 @@ class TestAddAccount(TestCase):
 
         self.assertEqual(fake_str.getvalue(),testStr)
 
+    @patch('Hash.HashClass.newPasswordHash')
     @patch('db.Database.PasswordDatabase.addUser', side_effect=UserExistsException())
-    def testAddAccountUserExists(self,mockUser):
+    def testAddAccountUserExists(self, mockUser, mockHash):
 
         testAccounts = UserAccount('','')
         testStr = 'Username already exists!\n'
@@ -43,8 +49,9 @@ class TestAddAccount(TestCase):
 
         self.assertEqual(fake_str.getvalue(),testStr)
 
+    @patch('Hash.HashClass.newPasswordHash')
     @patch('db.Database.PasswordDatabase.addUser', side_effect=DatabaseErrorException('DB ERROR'))
-    def testAddAccountDatabaseError(self,mockUser):
+    def testAddAccountDatabaseError(self, mockUser, mockHash):
 
         testAccounts = UserAccount('','')
         testStr = 'Database error\n'
@@ -57,8 +64,15 @@ class TestAddAccount(TestCase):
     '''
     checkAuth tests
     '''
+    def testCheckAuthTrue(self):
+
+        testAccounts = UserAccount('test','test')
+        testAccounts.isAuth = True
+
+        self.assertTrue(testAccounts.checkAuth())
+
     @patch('db.Database.PasswordDatabase.selectUser', side_effect=UserDoesNotExistException())
-    def testCheckAuthUserDoesNotExist(self,mockUser):
+    def testCheckAuthUserDoesNotExist(self, mockUser):
 
         testAccounts = UserAccount('test','test')
         testStr = 'Username %s does not exist! \n' % testAccounts.uname
@@ -69,7 +83,7 @@ class TestAddAccount(TestCase):
         self.assertEqual(fake_str.getvalue(),testStr)
 
     @patch('db.Database.PasswordDatabase.selectUser', side_effect=DatabaseErrorException('DB ERROR'))
-    def testCheckAuthDatabaseError(self,mockUser):
+    def testCheckAuthDatabaseError(self, mockUser):
 
         testAccounts = UserAccount('test','test')
         testStr = 'Database Error\n'
@@ -79,3 +93,18 @@ class TestAddAccount(TestCase):
 
         self.assertEqual(fake_str.getvalue(),testStr)
 
+    @patch('Hash.HashClass.checkHashWithSalt', side_effect=True)
+    @patch('db.Database.PasswordDatabase.selectUser')
+    def testCheckAuthPasswordMatchTrue(self, mockHash, mockUser):
+
+        testAccounts = UserAccount('test', 'test')
+
+        self.assertTrue(testAccounts.checkAuth())
+
+    #@patch('builtins.input', return_value='test')
+    # @patch('Hash.HashClass.checkHashWithSalt', side_effect=False)
+    # @patch('db.Database.PasswordDatabase.selectUser', return_value = hashMock)
+    # def testCheckAuthPasswordMatchFalse(self, mockHash, mockUser):
+    #     testAccounts = UserAccount('test', 'test')
+
+    #     self.assertFalse(testAccounts.checkAuth())

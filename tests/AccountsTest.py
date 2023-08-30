@@ -1,7 +1,7 @@
 from unittest import TestCase
 from unittest import mock as MOCK
 from unittest.mock import patch
-from mockito import when, mock
+from mockito import when, mock, unstub, spy, verifyStubbedInvocationsAreUsed
 
 import sys
 import os
@@ -17,38 +17,25 @@ from Hash import HashClass
 
 class TestAddAccount(TestCase):
 
+    @patch('db.Database.PasswordDatabase.addUser', side_effect=UserExistsException())
+    def testAddAccountUserExists(self,mockUser):
 
-    def testAddAccountDatabaseError(self):
+        testAccounts = UserAccount('','')
+        testStr = 'Username already exists!\n'
 
-        instance = mock(PasswordDatabase)
+        with MOCK.patch('sys.stdout', new=io.StringIO()) as fake_str:
+            testAccounts.addAccount()
+
+        self.assertEqual(fake_str.getvalue(),testStr)
+
+    @patch('db.Database.PasswordDatabase.addUser', side_effect=DatabaseErrorException('Test'))
+    def testAddAccountDatabaseError(self,mockUser):
+
         testAccounts = UserAccount('','')
         testStr = 'Database error\n'
 
-        #when(instance).addUser(any,any).thenRaise(DatabaseErrorException)
-
         with MOCK.patch('sys.stdout', new=io.StringIO()) as fake_str:
-            with when(instance).addUser(...).thenRaise(UserExistsException):
-                testAccounts.addAccount()
+            testAccounts.addAccount()
 
         self.assertEqual(fake_str.getvalue(),testStr)
 
-
-    def testAddAccountUserExists(self):
-
-        instance = mock(PasswordDatabase)
-        testAccounts = UserAccount('matt_test_1','test_pass_1')
-        testStr = 'Username already exists!\n'
-
-        # when addUser function from PasswordDatabase class is called,
-        # raise UserExistsException
-        # when(instance).addUser(...).thenRaise(UserExistsException)
-
-        # test output string matches
-        with MOCK.patch('sys.stdout', new=io.StringIO()) as fake_str:
-            with when(instance).addUser(...).thenRaise(UserExistsException):
-                testAccounts.addAccount()
-
-        self.assertEqual(fake_str.getvalue(),testStr)
-
-    # if __name__ == '__main__':
-    #     unittest.main()

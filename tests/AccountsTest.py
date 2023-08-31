@@ -1,7 +1,6 @@
 from unittest import TestCase
 from unittest import mock as MOCK
 from unittest.mock import patch
-from mockito import when, mock, unstub, spy, verifyStubbedInvocationsAreUsed
 
 import sys
 import os
@@ -62,49 +61,50 @@ class TestAddAccount(TestCase):
         self.assertEqual(fake_str.getvalue(),testStr)
 
     '''
-    checkAuth tests
+    selectAccount tests
     '''
-    def testCheckAuthTrue(self):
-
-        testAccounts = UserAccount('test','test')
-        testAccounts.isAuth = True
-
-        self.assertTrue(testAccounts.checkAuth())
-
     @patch('db.Database.PasswordDatabase.selectUser', side_effect=UserDoesNotExistException())
-    def testCheckAuthUserDoesNotExist(self, mockUser):
+    def testSelectAccountUserDoesNotExist(self, mockUser):
 
         testAccounts = UserAccount('test','test')
-        testStr = 'Username %s does not exist! \n' % testAccounts.uname
 
-        with MOCK.patch('sys.stdout', new=io.StringIO()) as fake_str:
-            testAccounts.checkAuth()
-
-        self.assertEqual(fake_str.getvalue(),testStr)
+        self.assertEqual(testAccounts.selectAccount(),None)
 
     @patch('db.Database.PasswordDatabase.selectUser', side_effect=DatabaseErrorException('DB ERROR'))
-    def testCheckAuthDatabaseError(self, mockUser):
+    def testSelectAccountDatabaseError(self, mockUser):
 
         testAccounts = UserAccount('test','test')
-        testStr = 'Database Error\n'
 
-        with MOCK.patch('sys.stdout', new=io.StringIO()) as fake_str:
-            testAccounts.checkAuth()
+        self.assertEqual(testAccounts.selectAccount(),None)
 
-        self.assertEqual(fake_str.getvalue(),testStr)
+    
+    @patch('db.Database.PasswordDatabase.selectUser', return_value = hashMock)
+    def testSelectAccount(self, mockUser):
 
-    @patch('Hash.HashClass.checkHashWithSalt', side_effect=True)
-    @patch('db.Database.PasswordDatabase.selectUser')
-    def testCheckAuthPasswordMatchTrue(self, mockHash, mockUser):
+        testAccounts = UserAccount('test','test')
+
+        self.assertEqual(testAccounts.selectAccount(), hashMock)
+
+    '''
+    checkAuth tests
+    '''
+    def testCheckAuthIsAuthTrue(self):
+
+        testAccounts = UserAccount('test', 'test')
+        testAccounts.isAuth = True
+
+        self.assertTrue(testAccounts.checkAuth(hashMock))
+
+    @patch('Hash.HashClass.checkHashWithSalt', return_value = False)
+    def testCheckAuthHashFalse(self, mockUser):
+
+        testAccounts = UserAccount('test', 'test')
+        
+        self.assertFalse(testAccounts.checkAuth(hashMock))
+
+    @patch('Hash.HashClass.checkHashWithSalt', return_value = True)
+    def testCheckAuthHashTrue(self, mockUser):
 
         testAccounts = UserAccount('test', 'test')
 
-        self.assertTrue(testAccounts.checkAuth())
-
-    #@patch('builtins.input', return_value='test')
-    # @patch('Hash.HashClass.checkHashWithSalt', side_effect=False)
-    # @patch('db.Database.PasswordDatabase.selectUser', return_value = hashMock)
-    # def testCheckAuthPasswordMatchFalse(self, mockHash, mockUser):
-    #     testAccounts = UserAccount('test', 'test')
-
-    #     self.assertFalse(testAccounts.checkAuth())
+        self.assertTrue(testAccounts.checkAuth(hashMock))

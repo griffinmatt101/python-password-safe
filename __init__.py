@@ -21,7 +21,7 @@ def main():
     isAuth = False
     menu()
     x = ''
-    while x != 'q': 
+    while True: 
         x = input()
         #TODO: Error and Type checking
 
@@ -45,12 +45,22 @@ def main():
                 uname = input()
                 print('Password')
                 pwd = input()
+
                 account = UserAccount(uname,pwd)
-                if(account.checkAuth()):
-                    print('AUTHED')
-                    isAuth = account.isAuth
-                else:
-                    print('Please select an option: ')
+                hashComp = account.selectAccount()
+                
+                count = 0
+                while count < 3:
+                    if(account.checkAuth()):
+                        print('AUTHED')
+                        isAuth = account.isAuth
+                        break
+                    elif (count < 2):
+                        print('Incorrect Password! Try again: ')
+                        account.pwd = input()
+                    else:
+                        print('Incorrect Password! Returning to menu')
+                    count = count + 1
         # ---------------------------------------------
 
         # RETRIEVE ENTRY ------------------------------------------------------------------------------

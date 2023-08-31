@@ -47,34 +47,32 @@ class UserAccount:
         return
     
     '''
-    Grabs password and hash from database for username, and compares with
-    the provided password to see if hashes match
+    Grabs password and hash from database for username, and returns the 
+    hash object
     '''
-    def checkAuth(self):
+    def selectAccount(self):
+
+        try:
+            hashObj = db.selectUser(self.uname)
+            return hashObj
+        except UserDoesNotExistException:
+            print('Username %s does not exist! ' % self.uname)
+            return None
+        except DatabaseErrorException:
+            print('Database Error')
+            return None
+
+    '''
+    Check the hashed password pulled from the database matches
+    password input from user
+    '''
+    def checkAuth(self, hashObj):
 
         if(self.isAuth):
             return True
 
-        try:
-            hashTest = db.selectUser(self.uname)
-        except UserDoesNotExistException:
-            print('Username %s does not exist! ' % self.uname)
-            return
-        except DatabaseErrorException:
-            print('Database Error')
-            return
-
-        count = 0
-
-        while count < 3:
-            if(hashTest.checkHashWithSalt(self.pwd)): 
-                self.isAuth = True
-                print('Authenticated!')
-                return True
-            elif(count < 2):
-                print('Incorrect Password! Try again: ')
-                self.pwd = input()
-            else:
-                print('Incorrect Password! Returning to menu')
-                return False
-            count = count + 1
+        if(hashObj.checkHashWithSalt(self.pwd)):
+            self.isAuth = True
+            return True
+        
+        return False

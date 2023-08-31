@@ -51,7 +51,10 @@ def main():
                 
                 count = 0
                 while count < 3:
-                    if(account.checkAuth()):
+                    if(hashComp == None):
+                        print('Returning to menu')
+                        break
+                    elif(account.checkAuth(hashComp)):
                         print('AUTHED')
                         isAuth = account.isAuth
                         break

@@ -1,5 +1,5 @@
 __pycache__/
-postgres/*
+postgres/
 src/db/__pycache__/
 src/exceptions/__pycache__/
 test/__pycache__/

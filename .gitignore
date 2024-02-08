@@ -4,3 +4,4 @@ src/exceptions/__pycache__/
 test/__pycache__/
 .env
 .env*
+postgres/

@@ -19,7 +19,7 @@ hashMock = HashClass()
 hashMock.pwd = 'pwd'
 hashMock.salt = 'salt'
 
-class TestAddAccount(TestCase):
+class TestAccount(TestCase):
 
     '''
     addAccount tests

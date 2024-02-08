@@ -93,3 +93,17 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+'''
+FIX USER INPUT
+EXAMPLE:
+def getNumeric(prompt):
+    while True:
+        try:
+            res = int(input(prompt))
+            break
+        except ValueError:
+            print("Numbers only please!")
+    return res
+'''

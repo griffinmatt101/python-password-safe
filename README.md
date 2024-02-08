@@ -42,6 +42,9 @@ Store entries in postgresql db
 - Display code coverage: `coverage report -m`
 
 ### Database Structure (WIP)
+
+- Note: Need to store salt in a different table to minimize security risk
+
 <pre>
 
 user_accounts table
